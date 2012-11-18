@@ -8,21 +8,21 @@
             elem.pickChecked = function(){
                 return this.filter(':checked');
             };
-            elem.disableRest = function(num){
-                this.filter(function(index, elem){
-                    return jQuery(elem).val() == num;
+            elem.doDisable = function(value){
+                this.filter(function(_, elem){
+                    return jQuery(elem).val() == value;
                 }).attr("disabled", true);
-                this.filter(function(index, elem){
-                    return jQuery(elem).val() != num;
+                this.filter(function(_, elem){
+                    return jQuery(elem).val() != value;
                 }).attr("disabled", false);
             };
         });
         radios.forEach(function(elem){
             elem.change(function(){
                 if(group_a.is(':checked')){
-                    group_b.disableRest(group_a.pickChecked().val());
+                    group_b.doDisable(group_a.pickChecked().val());
                     if(group_b.is(':checked')){
-                        group_c.disableRest(group_b.pickChecked().val());
+                        group_c.doDisable(group_b.pickChecked().val());
                     };
                 };
             });
